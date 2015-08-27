@@ -10,9 +10,10 @@
 <p><%= image_tag @article.image.url(:medium) %></p>
 
 <p><%= @article.body %></p>
+<% if logged_in? %>
 <%= link_to "edit", edit_article_path(@article) %>
 <%= link_to "delete", article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
-
+<% end %>
 <%= render partial: 'comments/form' %>
 
 <%= render partial: 'articles/comment', collection: @article.comments %>

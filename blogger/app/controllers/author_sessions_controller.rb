@@ -1,4 +1,5 @@
 class AuthorSessionsController < ApplicationController
+  before_filter :zero_authors_or_authenticated, only: [:new, :create]
 
   def new
   end
@@ -16,5 +17,11 @@ class AuthorSessionsController < ApplicationController
     logout
     redirect_to(:authors, notice: 'Logged out!')
   end
+
+  def zero_authors_or_authenticated
+    unless Author.count == 0 || current_user
+      redirect_to root_path
+      return false
+    end
 
 end
